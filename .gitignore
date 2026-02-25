@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+.expo/
+
+# Build outputs
+dist/
+backend/dist/
+
+# Database
+*.sqlite
+
+# Environment
+.env
+.env.local
+.env.production
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Uploads
+backend/uploads/
+
+# Logs
+*.log
+npm-debug.log*

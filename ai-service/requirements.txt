@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+transformers
+torch
+numpy
+pandas
+psycopg2-binary
+sqlalchemy
