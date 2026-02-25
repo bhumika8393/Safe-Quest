@@ -5,6 +5,8 @@ import Colors from '@/constants/Colors';
 import { FontAwesome5, MaterialIcons, Ionicons } from '@expo/vector-icons';
 import { RewardsService, UserStats } from '@/services/RewardsService';
 
+const theme = Colors.light;
+
 export default function ProfileScreen() {
     const [stats, setStats] = useState<UserStats | null>(null);
     const [loading, setLoading] = useState(true);
@@ -21,7 +23,7 @@ export default function ProfileScreen() {
     if (loading) {
         return (
             <View style={styles.center}>
-                <ActivityIndicator size="large" color={Colors.light.tint} />
+                <ActivityIndicator size="large" color={theme.tint} />
             </View>
         );
     }
@@ -41,7 +43,7 @@ export default function ProfileScreen() {
                     </View>
                     <Text style={styles.userName}>Alex Morgan</Text>
                     <View style={styles.trustRow}>
-                        <MaterialIcons name="verified-user" size={16} color={Colors.light.safe} />
+                        <MaterialIcons name="verified-user" size={16} color={theme.safe} />
                         <Text style={styles.trustText}>
                             {stats?.safetyScore && stats.safetyScore > 80 ? 'Verified Guardian' : 'Reliable Traveler'}
                         </Text>
@@ -74,7 +76,7 @@ export default function ProfileScreen() {
                             <FontAwesome5
                                 name={badge === 'Safety First' ? 'shield-alt' : badge === 'Explorer' ? 'map-marked-alt' : 'medal'}
                                 size={32}
-                                color={badge === 'Safety First' ? Colors.light.safe : badge === 'Explorer' ? Colors.light.tint : Colors.light.cultural}
+                                color={badge === 'Safety First' ? theme.safe : badge === 'Explorer' ? theme.tint : theme.cultural}
                             />
                             <Text style={styles.badgeName}>{badge}</Text>
                         </View>
@@ -87,19 +89,19 @@ export default function ProfileScreen() {
 
             <View style={styles.menu}>
                 <TouchableOpacity style={styles.menuItem}>
-                    <Ionicons name="download-outline" size={24} color="#475569" />
+                    <Ionicons name="download-outline" size={24} color={theme.textSecondary} />
                     <Text style={styles.menuLabel}>Offline SafePacks</Text>
-                    <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+                    <Ionicons name="chevron-forward" size={20} color={theme.textSecondary} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.menuItem}>
-                    <Ionicons name="settings-outline" size={24} color="#475569" />
+                    <Ionicons name="settings-outline" size={24} color={theme.textSecondary} />
                     <Text style={styles.menuLabel}>Account Settings</Text>
-                    <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+                    <Ionicons name="chevron-forward" size={20} color={theme.textSecondary} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.menuItem}>
-                    <Ionicons name="help-buoy-outline" size={24} color="#475569" />
+                    <Ionicons name="help-buoy-outline" size={24} color={theme.textSecondary} />
                     <Text style={styles.menuLabel}>Support Center</Text>
-                    <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+                    <Ionicons name="chevron-forward" size={20} color={theme.textSecondary} />
                 </TouchableOpacity>
             </View>
         </ScrollView>
@@ -110,13 +112,15 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F8FAFC',
+        backgroundColor: theme.background,
     },
     header: {
-        backgroundColor: 'white',
+        backgroundColor: theme.card,
         paddingTop: 40,
         paddingBottom: 30,
         alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: theme.border,
     },
     profileInfo: {
         alignItems: 'center',
@@ -131,16 +135,19 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 50,
+        borderWidth: 3,
+        borderColor: theme.tint,
     },
     levelBadge: {
         position: 'absolute',
         bottom: -5,
-        backgroundColor: Colors.light.cultural,
+        backgroundColor: theme.cultural,
         paddingHorizontal: 10,
         paddingVertical: 4,
         borderRadius: 12,
         borderWidth: 2,
-        borderColor: 'white',
+        borderColor: theme.card,
+        alignSelf: 'center',
     },
     levelText: {
         color: 'white',
@@ -150,7 +157,7 @@ const styles = StyleSheet.create({
     userName: {
         fontSize: 24,
         fontWeight: '800',
-        color: '#0F172A',
+        color: theme.text,
         marginBottom: 4,
     },
     trustRow: {
@@ -161,17 +168,17 @@ const styles = StyleSheet.create({
     trustText: {
         marginLeft: 6,
         fontSize: 14,
-        color: Colors.light.safe,
+        color: theme.safe,
         fontWeight: '700',
     },
     statsRow: {
         flexDirection: 'row',
-        backgroundColor: 'white',
+        backgroundColor: theme.card,
         marginTop: 2,
         paddingVertical: 20,
         borderTopWidth: 1,
         borderBottomWidth: 1,
-        borderColor: '#F1F5F9',
+        borderColor: theme.border,
     },
     statBox: {
         flex: 1,
@@ -181,18 +188,18 @@ const styles = StyleSheet.create({
     statValue: {
         fontSize: 18,
         fontWeight: '800',
-        color: '#0F172A',
+        color: theme.text,
     },
     statLabel: {
         fontSize: 12,
-        color: '#64748B',
+        color: theme.textSecondary,
         fontWeight: '600',
         marginTop: 2,
     },
     divider: {
         width: 1,
         height: '60%',
-        backgroundColor: '#E2E8F0',
+        backgroundColor: theme.border,
         alignSelf: 'center',
     },
     section: {
@@ -202,7 +209,7 @@ const styles = StyleSheet.create({
     sectionTitle: {
         fontSize: 18,
         fontWeight: '800',
-        color: '#0F172A',
+        color: theme.text,
         paddingHorizontal: 20,
         marginBottom: 15,
     },
@@ -211,32 +218,31 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     badgeCard: {
-        backgroundColor: 'white',
+        backgroundColor: theme.card,
         width: 100,
         padding: 15,
         borderRadius: 20,
         marginRight: 15,
         alignItems: 'center',
-        elevation: 2,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 10,
+        borderWidth: 1,
+        borderColor: theme.border,
     },
     badgeName: {
         marginTop: 8,
         fontSize: 12,
         fontWeight: '700',
-        color: '#334155',
+        color: theme.text,
         textAlign: 'center',
     },
     menu: {
         marginTop: 30,
         marginHorizontal: 20,
-        backgroundColor: 'white',
+        backgroundColor: theme.card,
         borderRadius: 20,
         padding: 10,
         marginBottom: 40,
+        borderWidth: 1,
+        borderColor: theme.border,
     },
     menuItem: {
         flexDirection: 'row',
@@ -249,20 +255,19 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         fontSize: 15,
         fontWeight: '600',
-        color: '#334155',
+        color: theme.text,
     },
     center: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F8FAFC',
+        backgroundColor: theme.background,
     },
     emptyText: {
         fontSize: 14,
-        color: '#94A3B8',
+        color: theme.textSecondary,
         fontStyle: 'italic',
         marginTop: 20,
         paddingRight: 40,
     }
 });
-

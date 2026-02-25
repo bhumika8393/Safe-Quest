@@ -16,7 +16,7 @@ export default function TabLayout() {
         tabBarInactiveTintColor: theme.tabIconDefault,
         tabBarStyle: {
           backgroundColor: theme.background,
-          borderTopColor: colorScheme === 'dark' ? '#1E293B' : '#E2E8F0',
+          borderTopColor: colorScheme === 'dark' ? '#2D2640' : '#E5E7EB',
           height: 60,
           paddingBottom: 10,
         },

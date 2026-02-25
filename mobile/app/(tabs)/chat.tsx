@@ -6,6 +6,8 @@ import Colors from '@/constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import Config from '@/constants/Config';
 
+const theme = Colors.light;
+
 export default function AIChatScreen() {
     const params = useLocalSearchParams();
     const [messages, setMessages] = useState([
@@ -80,7 +82,7 @@ export default function AIChatScreen() {
                 {isTyping && (
                     <View style={styles.aiWrapper}>
                         <View style={[styles.bubble, styles.aiBubble, { paddingVertical: 10 }]}>
-                            <ActivityIndicator size="small" color={Colors.light.tint} />
+                            <ActivityIndicator size="small" color={theme.tint} />
                         </View>
                     </View>
                 )}
@@ -88,7 +90,7 @@ export default function AIChatScreen() {
 
             <View style={styles.quickSuggestions}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                    {['Tourist laws in Rome', 'Tipping etiquette', 'Bus ticket fine', 'Colosseum scam'].map(tip => (
+                    {['Tourist laws in Rome', 'Tipping etiquette', 'Bus ticket fine', 'Colosseum scam', 'Emergency numbers', 'Transport guide'].map(tip => (
                         <TouchableOpacity
                             key={tip}
                             style={styles.suggestionChip}
@@ -104,9 +106,10 @@ export default function AIChatScreen() {
                 <TextInput
                     style={styles.input}
                     placeholder="Ask SafeQuest AI..."
-                    placeholderTextColor="#94A3B8"
+                    placeholderTextColor={theme.textSecondary}
                     value={inputText}
                     onChangeText={setInputText}
+                    onSubmitEditing={() => sendMessage()}
                 />
                 <TouchableOpacity style={styles.sendButton} onPress={() => sendMessage()}>
                     <Ionicons name="send" size={20} color="white" />
@@ -120,7 +123,7 @@ export default function AIChatScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F8FAFC',
+        backgroundColor: theme.background,
     },
     chatContainer: {
         padding: 20,
@@ -144,29 +147,26 @@ const styles = StyleSheet.create({
         maxWidth: '85%',
     },
     userBubble: {
-        backgroundColor: Colors.light.tint,
+        backgroundColor: theme.tint,
         borderBottomRightRadius: 4,
     },
     aiBubble: {
-        backgroundColor: 'white',
+        backgroundColor: theme.card,
         borderBottomLeftRadius: 4,
-        elevation: 2,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 5,
+        borderWidth: 1,
+        borderColor: theme.border,
     },
     userText: {
         color: 'white',
         fontSize: 15,
         fontWeight: '500',
-        lineHeight: 20,
+        lineHeight: 22,
     },
     aiText: {
-        color: '#334155',
+        color: theme.text,
         fontSize: 15,
         fontWeight: '500',
-        lineHeight: 20,
+        lineHeight: 22,
     },
     quickSuggestions: {
         paddingVertical: 12,
@@ -174,43 +174,45 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     suggestionChip: {
-        backgroundColor: 'white',
+        backgroundColor: theme.card,
         paddingHorizontal: 14,
         paddingVertical: 8,
         borderRadius: 20,
         marginRight: 10,
         borderWidth: 1,
-        borderColor: '#E2E8F0',
+        borderColor: theme.border,
     },
     suggestionText: {
         fontSize: 13,
-        color: '#64748B',
+        color: theme.tint,
         fontWeight: '600',
     },
     inputArea: {
         flexDirection: 'row',
         padding: 16,
         paddingBottom: Platform.OS === 'ios' ? 30 : 20,
-        backgroundColor: 'white',
+        backgroundColor: theme.card,
         alignItems: 'center',
         borderTopWidth: 1,
-        borderTopColor: '#E2E8F0',
+        borderTopColor: theme.border,
     },
     input: {
         flex: 1,
-        backgroundColor: '#F1F5F9',
+        backgroundColor: theme.subtle,
         borderRadius: 25,
         paddingHorizontal: 20,
         height: 50,
         fontSize: 15,
-        color: '#1E293B',
+        color: theme.text,
         marginRight: 12,
+        borderWidth: 1,
+        borderColor: theme.border,
     },
     sendButton: {
         width: 50,
         height: 50,
         borderRadius: 25,
-        backgroundColor: Colors.light.tint,
+        backgroundColor: theme.tint,
         alignItems: 'center',
         justifyContent: 'center',
     },

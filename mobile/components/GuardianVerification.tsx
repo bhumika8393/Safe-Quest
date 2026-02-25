@@ -6,6 +6,8 @@ import Colors from '@/constants/Colors';
 import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import Config from '@/constants/Config';
 
+const theme = Colors.light;
+
 export default function GuardianVerification() {
     const [reports, setReports] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -31,12 +33,12 @@ export default function GuardianVerification() {
         }
     };
 
-    if (loading && reports.length === 0) return <ActivityIndicator style={{ marginTop: 20 }} color={Colors.light.tint} />;
+    if (loading && reports.length === 0) return <ActivityIndicator style={{ marginTop: 20 }} color={theme.tint} />;
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Ionicons name="shield-checkmark" size={24} color={Colors.light.safe} />
+                <Ionicons name="shield-checkmark" size={24} color={theme.safe} />
                 <Text style={styles.title}>Pending Verifications</Text>
             </View>
 
@@ -52,7 +54,7 @@ export default function GuardianVerification() {
                         <View style={styles.card}>
                             <View style={styles.cardHeader}>
                                 <Text style={styles.scamType}>{item.type || 'Unknown Scam'}</Text>
-                                <View style={[styles.riskBadge, { backgroundColor: item.riskScore > 0.7 ? '#FEE2E2' : '#FEF3C7' }]}>
+                                <View style={[styles.riskBadge, { backgroundColor: item.riskScore > 0.7 ? 'rgba(239,68,68,0.15)' : 'rgba(217,119,6,0.15)' }]}>
                                     <Text style={[styles.riskText, { color: item.riskScore > 0.7 ? '#EF4444' : '#D97706' }]}>
                                         AI Risk: {Math.round(item.riskScore * 100)}%
                                     </Text>
@@ -104,29 +106,28 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: '800',
-        color: '#0F172A',
+        color: theme.text,
         marginLeft: 10,
     },
     emptyContainer: {
         padding: 40,
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: theme.card,
         borderRadius: 20,
+        borderWidth: 1,
+        borderColor: theme.border,
     },
     emptyText: {
-        color: '#64748B',
+        color: theme.textSecondary,
         fontSize: 14,
     },
     card: {
-        backgroundColor: 'white',
+        backgroundColor: theme.card,
         borderRadius: 20,
         padding: 16,
         marginBottom: 16,
-        elevation: 2,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 10,
+        borderWidth: 1,
+        borderColor: theme.border,
     },
     cardHeader: {
         flexDirection: 'row',
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
     scamType: {
         fontSize: 15,
         fontWeight: '700',
-        color: '#1E293B',
+        color: theme.text,
     },
     riskBadge: {
         paddingHorizontal: 8,
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
     },
     description: {
         fontSize: 14,
-        color: '#475569',
+        color: theme.textSecondary,
         lineHeight: 20,
         marginBottom: 12,
     },
@@ -174,13 +175,13 @@ const styles = StyleSheet.create({
     },
     dismissButton: {
         borderWidth: 1,
-        borderColor: '#E2E8F0',
+        borderColor: theme.border,
     },
     verifyButton: {
-        backgroundColor: Colors.light.safe,
+        backgroundColor: theme.safe,
     },
     buttonTextDismiss: {
-        color: '#64748B',
+        color: theme.textSecondary,
         fontWeight: '700',
         fontSize: 13,
     },

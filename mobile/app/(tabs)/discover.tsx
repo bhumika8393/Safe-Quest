@@ -8,7 +8,7 @@ import SafetyMap from '@/components/SafetyMap';
 import { StorageService } from '@/services/StorageService';
 import { SafetyService } from '@/services/SafetyService';
 
-
+const theme = Colors.light;
 
 const PLACES = [
   {
@@ -51,15 +51,12 @@ export default function DiscoverScreen() {
   };
 
   const openInsight = (query: string) => {
-
     router.push({ pathname: '/chat', params: { query } });
   };
 
   const downloadSafePack = async () => {
-
     setDownloading(true);
     try {
-      // Simulate fetching all data for the region
       const heatmap = await SafetyService.getHeatmap();
       const scams = await SafetyService.getNearbyScams();
 
@@ -89,53 +86,49 @@ export default function DiscoverScreen() {
         </View>
       )}
 
-      {/* Search Bar */}
       <View style={styles.searchBar}>
-        <FontAwesome name="search" size={18} color="#94A3B8" />
+        <FontAwesome name="search" size={18} color={theme.textSecondary} />
         <TextInput
           placeholder="Search safe places, museums..."
           style={styles.searchInput}
-          placeholderTextColor="#94A3B8"
+          placeholderTextColor={theme.textSecondary}
         />
         <View style={styles.actionRow}>
           <TouchableOpacity onPress={toggleOffline} style={{ marginRight: 15 }}>
             <MaterialIcons
               name={isOffline ? "toggle-on" : "toggle-off"}
               size={28}
-              color={isOffline ? Colors.light.tint : "#CBD5E1"}
+              color={isOffline ? theme.tint : theme.textSecondary}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={downloadSafePack} disabled={downloading}>
             <MaterialIcons
               name={downloading ? "hourglass-empty" : "cloud-download"}
               size={24}
-              color={Colors.light.tint}
+              color={theme.tint}
             />
           </TouchableOpacity>
         </View>
       </View>
 
-
-      {/* Safety Heatmap Section */}
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, { paddingHorizontal: 20, marginBottom: 15 }]}>Live Safety Heatmap</Text>
         <SafetyMap key={isOffline ? 'offline' : 'online'} />
       </View>
 
-
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, { paddingHorizontal: 20, marginBottom: 15 }]}>Cultural Insights</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
           <TouchableOpacity style={styles.insightCard} onPress={() => openInsight('What is the basilica etiquette in Rome?')}>
-            <MaterialCommunityIcons name="church" size={32} color={Colors.light.cultural} />
+            <MaterialCommunityIcons name="church" size={32} color={theme.cultural} />
             <Text style={styles.insightLabel}>Basilica Etiquette</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.insightCard} onPress={() => openInsight('Tipping etiquette in Italy')}>
-            <FontAwesome name="cutlery" size={32} color={Colors.light.safe} />
+            <FontAwesome name="cutlery" size={32} color={theme.safe} />
             <Text style={styles.insightLabel}>Tipping Guide</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.insightCard} onPress={() => openInsight('How to use public transit in Rome without getting fined?')}>
-            <MaterialCommunityIcons name="bus-alert" size={32} color={Colors.light.warning} />
+            <MaterialCommunityIcons name="bus-alert" size={32} color={theme.warning} />
             <Text style={styles.insightLabel}>Public Transit</Text>
           </TouchableOpacity>
         </ScrollView>
@@ -170,20 +163,20 @@ export default function DiscoverScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFC',
+    backgroundColor: theme.background,
   },
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: theme.card,
     margin: 20,
     padding: 12,
     borderRadius: 15,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: theme.border,
   },
   offlineBanner: {
-    backgroundColor: '#334155',
+    backgroundColor: theme.tint,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -202,17 +195,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   searchInput: {
-
     flex: 1,
     marginLeft: 10,
     fontSize: 15,
-    color: '#1E293B',
-  },
-
-  searchPlaceholder: {
-    marginLeft: 10,
-    color: '#94A3B8',
-    fontSize: 14,
+    color: theme.text,
   },
   section: {
     marginBottom: 30,
@@ -229,13 +215,13 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: '800',
-    color: '#0F172A',
+    color: theme.text,
     paddingHorizontal: 20,
     marginBottom: 15,
   },
   viewAll: {
     fontSize: 14,
-    color: Colors.light.tint,
+    color: theme.tint,
     fontWeight: '600',
   },
   horizontalScroll: {
@@ -243,36 +229,30 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   insightCard: {
-    backgroundColor: 'white',
+    backgroundColor: theme.card,
     padding: 20,
     borderRadius: 20,
     marginRight: 15,
     width: 140,
     alignItems: 'center',
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
+    borderWidth: 1,
+    borderColor: theme.border,
   },
   insightLabel: {
     marginTop: 10,
     fontSize: 13,
     fontWeight: '700',
     textAlign: 'center',
-    color: '#334155',
+    color: theme.text,
   },
   placeCard: {
-    backgroundColor: 'white',
+    backgroundColor: theme.card,
     marginHorizontal: 20,
     marginBottom: 20,
     borderRadius: 20,
     overflow: 'hidden',
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 12,
+    borderWidth: 1,
+    borderColor: theme.border,
   },
   placeImage: {
     width: '100%',
@@ -292,10 +272,10 @@ const styles = StyleSheet.create({
   placeName: {
     fontSize: 17,
     fontWeight: '800',
-    color: '#0F172A',
+    color: theme.text,
   },
   ratingBadge: {
-    backgroundColor: '#F1F5F9',
+    backgroundColor: 'rgba(34, 197, 94, 0.15)',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 6,
@@ -303,17 +283,17 @@ const styles = StyleSheet.create({
   ratingText: {
     fontSize: 12,
     fontWeight: '800',
-    color: Colors.light.safe,
+    color: theme.safe,
   },
   placeCategory: {
     fontSize: 13,
-    color: '#64748B',
+    color: theme.textSecondary,
     marginBottom: 8,
     fontWeight: '600',
   },
   placeIntel: {
     fontSize: 14,
-    color: '#475569',
+    color: theme.textSecondary,
     lineHeight: 20,
   },
 });

@@ -5,6 +5,8 @@ import Colors from '@/constants/Colors';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import Config from '@/constants/Config';
 
+const theme = Colors.light;
+
 interface Tip {
     id: string;
     userId: string;
@@ -65,7 +67,7 @@ export default function CommunityTips({ location }: { location: string }) {
         }
     };
 
-    if (loading) return <ActivityIndicator style={{ margin: 20 }} color={Colors.light.tint} />;
+    if (loading) return <ActivityIndicator style={{ margin: 20 }} color={theme.tint} />;
 
     return (
         <View style={styles.container}>
@@ -75,6 +77,7 @@ export default function CommunityTips({ location }: { location: string }) {
                 <TextInput
                     style={styles.input}
                     placeholder="Share a safety tip for this area..."
+                    placeholderTextColor={theme.textSecondary}
                     value={newTip}
                     onChangeText={setNewTip}
                     multiline
@@ -95,14 +98,14 @@ export default function CommunityTips({ location }: { location: string }) {
                 renderItem={({ item }) => (
                     <View style={styles.tipCard}>
                         <View style={styles.tipHeader}>
-                            <FontAwesome name="user-circle" size={16} color="#64748B" />
+                            <FontAwesome name="user-circle" size={16} color={theme.textSecondary} />
                             <Text style={styles.tipUser}>{item.userId.substring(0, 8)}...</Text>
                             <Text style={styles.tipTime}>{new Date(item.createdAt).toLocaleDateString()}</Text>
                         </View>
                         <Text style={styles.tipContent}>{item.content}</Text>
                         <View style={styles.tipFooter}>
                             <TouchableOpacity style={styles.upvoteButton}>
-                                <Ionicons name="caret-up" size={18} color={Colors.light.safe} />
+                                <Ionicons name="caret-up" size={18} color={theme.safe} />
                                 <Text style={styles.upvoteText}>{item.upvotes}</Text>
                             </TouchableOpacity>
                         </View>
@@ -124,7 +127,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: '800',
-        color: '#0F172A',
+        color: theme.text,
         marginBottom: 15,
     },
     inputRow: {
@@ -134,16 +137,17 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: theme.card,
         borderRadius: 12,
         padding: 12,
         fontSize: 14,
+        color: theme.text,
         borderWidth: 1,
-        borderColor: '#E2E8F0',
+        borderColor: theme.border,
         maxHeight: 100,
     },
     postButton: {
-        backgroundColor: Colors.light.tint,
+        backgroundColor: theme.tint,
         width: 48,
         height: 48,
         borderRadius: 12,
@@ -152,15 +156,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     tipCard: {
-        backgroundColor: 'white',
+        backgroundColor: theme.card,
         borderRadius: 16,
         padding: 16,
         marginBottom: 12,
-        elevation: 1,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.05,
-        shadowRadius: 5,
+        borderWidth: 1,
+        borderColor: theme.border,
     },
     tipHeader: {
         flexDirection: 'row',
@@ -171,17 +172,17 @@ const styles = StyleSheet.create({
     tipUser: {
         fontSize: 12,
         fontWeight: '600',
-        color: '#64748B',
+        color: theme.textSecondary,
         marginLeft: 6,
     },
     tipTime: {
         fontSize: 10,
-        color: '#94A3B8',
+        color: theme.textSecondary,
         marginLeft: 'auto',
     },
     tipContent: {
         fontSize: 14,
-        color: '#1E293B',
+        color: theme.text,
         lineHeight: 20,
     },
     tipFooter: {
@@ -192,7 +193,7 @@ const styles = StyleSheet.create({
     upvoteButton: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#F0FDF4',
+        backgroundColor: 'rgba(34, 197, 94, 0.1)',
         paddingHorizontal: 8,
         paddingVertical: 4,
         borderRadius: 8,
@@ -200,12 +201,12 @@ const styles = StyleSheet.create({
     upvoteText: {
         fontSize: 12,
         fontWeight: '700',
-        color: '#16A34A',
+        color: theme.safe,
         marginLeft: 4,
     },
     emptyText: {
         textAlign: 'center',
-        color: '#94A3B8',
+        color: theme.textSecondary,
         paddingVertical: 20,
         fontSize: 14,
     }

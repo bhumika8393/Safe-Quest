@@ -4,6 +4,8 @@ import { Text, View } from './Themed';
 import Colors from '@/constants/Colors';
 import { FontAwesome } from '@expo/vector-icons';
 
+const theme = Colors.light;
+
 interface SOSButtonProps {
     onTrigger: () => void;
     onCancel: () => void;
@@ -58,7 +60,7 @@ export default function SOSButton({ onTrigger, onCancel }: SOSButtonProps) {
                     onPressOut={cancelPress}
                     style={({ pressed }) => [
                         styles.button,
-                        { backgroundColor: isPressing ? '#D32F2F' : Colors.light.sos },
+                        { backgroundColor: isPressing ? '#D32F2F' : theme.sos },
                     ]}
                 >
                     {isPressing ? (
@@ -82,6 +84,7 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'transparent',
     },
     button: {
         width: 180,
@@ -90,10 +93,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 8,
-        shadowColor: '#000',
+        shadowColor: '#FF4D4F',
         shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 5,
+        shadowOpacity: 0.4,
+        shadowRadius: 12,
     },
     content: {
         alignItems: 'center',

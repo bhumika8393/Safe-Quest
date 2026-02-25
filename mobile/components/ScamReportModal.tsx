@@ -5,6 +5,7 @@ import Colors from '@/constants/Colors';
 import { ScamService } from '@/services/ScamService';
 import { MaterialIcons } from '@expo/vector-icons';
 
+const theme = Colors.light;
 
 interface ScamReportModalProps {
     visible: boolean;
@@ -17,8 +18,6 @@ export default function ScamReportModal({ visible, onClose }: ScamReportModalPro
     const [imageUri, setImageUri] = useState<string | null>(null);
 
     const pickImage = async () => {
-        // Mocking image picker since we can't easily run it here
-        // In a real app: let result = await ImagePicker.launchImageLibraryAsync(...)
         Alert.alert("Simulated Picker", "Image selected: evidence_photo_01.jpg");
         setImageUri('file:///mock/path/evidence.jpg');
     };
@@ -35,7 +34,6 @@ export default function ScamReportModal({ visible, onClose }: ScamReportModalPro
             let evidenceType = undefined;
 
             if (imageUri) {
-                // First upload the evidence
                 const uploadResult = await ScamService.uploadEvidence(imageUri);
                 evidenceUrl = uploadResult.url;
                 evidenceType = uploadResult.type;
@@ -43,8 +41,8 @@ export default function ScamReportModal({ visible, onClose }: ScamReportModalPro
 
             await ScamService.reportScam({
                 text,
-                lat: 41.8892, // Mocked
-                lon: 12.4687, // Mocked
+                lat: 41.8892,
+                lon: 12.4687,
                 userId: 'user_alex_123',
                 evidenceUrl,
                 evidenceType
@@ -60,7 +58,6 @@ export default function ScamReportModal({ visible, onClose }: ScamReportModalPro
         }
     };
 
-
     return (
         <Modal visible={visible} animationType="slide" transparent>
             <View style={styles.centeredView}>
@@ -71,6 +68,7 @@ export default function ScamReportModal({ visible, onClose }: ScamReportModalPro
                     <TextInput
                         style={styles.input}
                         placeholder="e.g. A taxi driver at the airport tried to charge me 100 Euro for a 20 Euro ride..."
+                        placeholderTextColor={theme.textSecondary}
                         multiline
                         numberOfLines={4}
                         value={text}
@@ -78,14 +76,13 @@ export default function ScamReportModal({ visible, onClose }: ScamReportModalPro
                     />
 
                     <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
-                        <MaterialIcons name="add-a-photo" size={20} color={imageUri ? Colors.light.safe : Colors.light.tint} />
-                        <Text style={[styles.uploadText, imageUri && { color: Colors.light.safe }]}>
+                        <MaterialIcons name="add-a-photo" size={20} color={imageUri ? theme.safe : theme.tint} />
+                        <Text style={[styles.uploadText, imageUri && { color: theme.safe }]}>
                             {imageUri ? "Evidence Attached ✓" : "Attach Photo Evidence"}
                         </Text>
                     </TouchableOpacity>
 
                     <View style={styles.buttonRow}>
-
                         <TouchableOpacity style={styles.cancelButton} onPress={onClose}>
                             <Text style={styles.cancelText}>Cancel</Text>
                         </TouchableOpacity>
@@ -112,40 +109,39 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0,0,0,0.7)',
     },
     modalView: {
         width: '90%',
-        backgroundColor: 'white',
+        backgroundColor: theme.card,
         borderRadius: 24,
         padding: 30,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 10 },
-        shadowOpacity: 0.25,
-        shadowRadius: 20,
-        elevation: 10,
+        borderWidth: 1,
+        borderColor: theme.border,
     },
     modalTitle: {
         fontSize: 22,
         fontWeight: '800',
-        color: '#0F172A',
+        color: theme.text,
         marginBottom: 8,
     },
     modalSub: {
         fontSize: 14,
-        color: '#64748B',
+        color: theme.textSecondary,
         marginBottom: 20,
         lineHeight: 20,
     },
     input: {
-        backgroundColor: '#F1F5F9',
+        backgroundColor: theme.subtle,
         borderRadius: 12,
         padding: 16,
         height: 120,
         textAlignVertical: 'top',
         fontSize: 15,
-        color: '#1E293B',
+        color: theme.text,
         marginBottom: 16,
+        borderWidth: 1,
+        borderColor: theme.border,
     },
     uploadButton: {
         flexDirection: 'row',
@@ -153,7 +149,7 @@ const styles = StyleSheet.create({
         padding: 12,
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: '#E2E8F0',
+        borderColor: theme.border,
         borderStyle: 'dashed',
         marginBottom: 24,
         backgroundColor: 'transparent',
@@ -162,10 +158,9 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         fontSize: 14,
         fontWeight: '600',
-        color: Colors.light.tint,
+        color: theme.tint,
     },
     buttonRow: {
-
         flexDirection: 'row',
         justifyContent: 'flex-end',
         backgroundColor: 'transparent',
@@ -176,11 +171,11 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     cancelText: {
-        color: '#64748B',
+        color: theme.textSecondary,
         fontWeight: '700',
     },
     submitButton: {
-        backgroundColor: Colors.light.tint,
+        backgroundColor: theme.tint,
         paddingVertical: 12,
         paddingHorizontal: 24,
         borderRadius: 12,

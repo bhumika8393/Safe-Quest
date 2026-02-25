@@ -5,6 +5,8 @@ import { RewardsService, UserStats } from '@/services/RewardsService';
 import Colors from '@/constants/Colors';
 import { FontAwesome5 } from '@expo/vector-icons';
 
+const theme = Colors.light;
+
 export default function Leaderboard() {
     const [leaders, setLeaders] = useState<UserStats[]>([]);
     const [loading, setLoading] = useState(true);
@@ -18,7 +20,7 @@ export default function Leaderboard() {
         fetchLeaders();
     }, []);
 
-    if (loading) return <ActivityIndicator color={Colors.light.tint} style={{ margin: 20 }} />;
+    if (loading) return <ActivityIndicator color={theme.tint} style={{ margin: 20 }} />;
 
     return (
         <View style={styles.container}>
@@ -57,17 +59,18 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: '800',
-        color: '#0F172A',
+        color: theme.text,
         marginBottom: 15,
     },
     leaderCard: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: theme.card,
         padding: 12,
         borderRadius: 16,
         marginBottom: 10,
-        elevation: 1,
+        borderWidth: 1,
+        borderColor: theme.border,
     },
     rankContainer: {
         width: 30,
@@ -77,7 +80,7 @@ const styles = StyleSheet.create({
     rankText: {
         fontSize: 14,
         fontWeight: '700',
-        color: '#94A3B8',
+        color: theme.textSecondary,
     },
     userInfo: {
         flex: 1,
@@ -87,21 +90,23 @@ const styles = StyleSheet.create({
     userName: {
         fontSize: 15,
         fontWeight: '700',
-        color: '#1E293B',
+        color: theme.text,
     },
     trustLevel: {
         fontSize: 12,
-        color: '#64748B',
+        color: theme.textSecondary,
     },
     xpInfo: {
-        backgroundColor: '#F1F5F9',
+        backgroundColor: theme.subtle,
         paddingHorizontal: 10,
         paddingVertical: 4,
         borderRadius: 8,
+        borderWidth: 1,
+        borderColor: theme.border,
     },
     xpText: {
         fontSize: 12,
         fontWeight: '800',
-        color: Colors.light.tint,
+        color: theme.tint,
     }
 });
