@@ -6,6 +6,14 @@ SafeQuest is a next-generation safety platform designed to protect travelers in 
 
 ---
 
+## 📱 App Screenshots
+
+> **March 2026** — SafeQuest Home Screen (Safety Dashboard)
+
+<img src="screenshots/home-screen-march-2026.png" alt="SafeQuest Home Screen — March 2026" width="390" />
+
+---
+
 ## 🚀 Key Features
 
 ### 🆘 Emergency Response
